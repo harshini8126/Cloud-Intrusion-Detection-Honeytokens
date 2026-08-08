@@ -1,15 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Employee Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
 
-<h1>Employee Dashboard</h1>
+    <h1>Employee Dashboard</h1>
 
-<p>Welcome Employee!</p>
+    <p>Welcome Employee!</p>
 
-<a href="/logout">Logout</a>
+    <a href="/logout">Logout</a>
+
+    <hr>
+
+    <h2>Cloud Resources</h2>
+
+    <!-- Normal Resources -->
+
+    <h3>Available Resources</h3>
+
+    <button class="resource-btn"
+            data-resource="Documents">
+        📁 Documents
+    </button>
+
+    <button class="resource-btn"
+            data-resource="Projects">
+        📁 Projects
+    </button>
+
+    <button class="resource-btn"
+            data-resource="HR">
+        📁 HR
+    </button>
+
+
+    <!-- Honeytokens -->
+
+    <h3>Restricted Resources</h3>
+
+    <button class="honeytoken-btn"
+            data-resource="Finance">
+        🔐 Finance
+    </button>
+
+    <button class="honeytoken-btn"
+            data-resource="Payroll">
+        🔐 Payroll
+    </button>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
 </html>
