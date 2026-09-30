@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ folder }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>📁 {{ folder }}</h1>
+{% if alert %}
+<h2 style="color:red;">
+⚠️ Honeytoken Folder Accessed!
+</h2>
+{% endif %}
+
+<h3>Files</h3>
+
+<ul>
+    <li>📄 Report.pdf</li>
+    <li>📄 Data.xlsx</li>
+    <li>📄 Notes.docx</li>
+</ul>
+
+<br>
+<hr>
+
+<h3>Folder Details</h3>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Folder Name</th>
+        <td>{{ folder }}</td>
+    </tr>
+
+    <tr>
+        <th>Owner</th>
+        <td>Cloud Admin</td>
+    </tr>
+
+    <tr>
+        <th>Total Files</th>
+        <td>3</td>
+    </tr>
+
+    <tr>
+        <th>Status</th>
+        <td>Active</td>
+    </tr>
+    <tr>
+    <th>Folder Type</th>
+    <td>{{ folder_type }}</td>
+</tr>
+</table>
+
+<br>
+
+<a href="/">⬅ Back to Dashboard</a><button onclick="window.location.href='/'">
+Home
+</button>
+
+</body>
+</html>

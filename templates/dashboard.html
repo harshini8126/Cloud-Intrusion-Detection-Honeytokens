@@ -1,254 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Cloud Workspace | Employee Portal</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>CanaryGraph</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
 
-    <!-- Top Navigation -->
-    <header class="topbar">
+    <h1>☁ CanaryGraph Cloud Storage</h1>
+<hr>
+<button onclick="createFolder()">Create Folder</button>
+<input type="text" placeholder="Search Folder">
 
-        <div class="brand">
-            <div class="brand-logo">C</div>
+<button onclick="searchFolder()">Search</button>
 
-            <div>
-                <h2>CloudSpace</h2>
-                <span>Employee Workspace</span>
-            </div>
-        </div>
 
-        <div class="topbar-right">
+<br><br>
+<h3>Storage Summary</h3>
 
-            <div class="status">
-                <span class="status-dot"></span>
-                System Online
-            </div>
+<p>Total Folders : 5</p>
+<p>Normal Folders : 3</p>
+<p>Honeytoken Folders : 2</p>
 
-            <div class="profile">
-                <div class="profile-avatar">E</div>
+<hr>
+<h3>Folders</h3>
 
-                <div class="profile-info">
-                    <strong>{{ session.get('username', 'Employee') }}</strong>
-                    <span>Employee</span>
-                </div>
-            </div>
+<div style="border:1px solid gray; border-radius:8px; padding:15px; margin:10px; width:250px; background:white;">
 
-            <a href="/logout" class="logout-btn">Logout</a>
+    <a href="/folder/Documents">📁 Documents</a>
 
-        </div>
+    <br><br>
 
-    </header>
+    <button onclick="deleteFolder('Documents')">Delete</button>
 
+</div>
 
-    <!-- Main Content -->
-    <main class="dashboard">
+<div style="border:1px solid gray; border-radius:8px; padding:15px; margin:10px; width:250px; background:white;">
 
-        <!-- Welcome Section -->
-        <section class="welcome-section">
+    <a href="/folder/Projects">📁 Projects</a>
 
-            <div>
-                <p class="small-title">EMPLOYEE PORTAL</p>
+    <br><br>
 
-                <h1>Welcome back, {{ session.get('username', 'Employee') }}</h1>
+    <button onclick="deleteFolder('Projects')">Delete</button>
 
-                <p class="welcome-text">
-                    Access your company's cloud resources and files from one secure workspace.
-                </p>
-            </div>
+</div>
 
-            <div class="security-card">
-                <div class="security-icon">✓</div>
+<div style="border:1px solid gray; border-radius:8px; padding:15px; margin:10px; width:250px; background:white;">
 
-                <div>
-                    <strong>Workspace Secure</strong>
-                    <span>Your session is active</span>
-                </div>
-            </div>
+    <a href="/folder/Photos">📁 Photos</a>
 
-        </section>
+    <br><br>
 
+    <button onclick="deleteFolder('Photos')">Delete</button>
 
-        <!-- Resource Section -->
-        <section class="resource-section">
+</div>
 
-            <div class="section-heading">
-                <div>
-                    <h2>Cloud Resources</h2>
-                    <p>Access the resources available to you.</p>
-                </div>
+<div style="border:2px solid red; border-radius:8px; padding:15px; margin:10px; width:250px; background:#fff5f5;">
 
-                <span class="resource-count">6 Resources</span>
-            </div>
+    <a href="/folder/Admin_Backup">🔒 Admin_Backup</a>
 
+    <br><br>
 
-            <!-- Resource Cards -->
-            <div class="resource-grid">
+    <button onclick="deleteFolder('Admin_Backup')">Delete</button>
 
-                <button class="resource-card" onclick="accessResource('Documents')">
+</div>
 
-                    <div class="resource-top">
-                        <div class="resource-icon documents">▣</div>
-                        <span class="arrow">→</span>
-                    </div>
+<div style="border:2px solid red; border-radius:8px; padding:15px; margin:10px; width:250px; background:#fff5f5;">
 
-                    <h3>Documents</h3>
+    <a href="/folder/CEO_Private">🔒 CEO_Private</a>
 
-                    <p>
-                        Company documents, reports and shared files.
-                    </p>
+    <br><br>
 
-                    <span class="resource-link">Open Resource</span>
+    <button onclick="deleteFolder('CEO_Private')">Delete</button>
 
-                </button>
+</div>
+function createFolder() {
+    let name = prompt("Enter folder name:");
 
+    if (name) {
+        alert("Folder '" + name + "' created successfully!");
+    }
+}
+function searchFolder() {
+    let text = document.querySelector("input").value.toLowerCase();
 
-                <button class="resource-card" onclick="accessResource('Projects')">
+    let folders = document.querySelectorAll("div a");
 
-                    <div class="resource-top">
-                        <div class="resource-icon projects">◆</div>
-                        <span class="arrow">→</span>
-                    </div>
+    folders.forEach(folder => {
+        if (folder.textContent.toLowerCase().includes(text)) {
+            folder.parentElement.style.display = "block";
+        } else {
+            folder.parentElement.style.display = "none";
+        }
+    });
+}
 
-                    <h3>Projects</h3>
+</script>
 
-                    <p>
-                        Project files, development resources and materials.
-                    </p>
-
-                    <span class="resource-link">Open Resource</span>
-
-                </button>
-
-
-                <button class="resource-card" onclick="accessResource('HR')">
-
-                    <div class="resource-top">
-                        <div class="resource-icon hr">♙</div>
-                        <span class="arrow">→</span>
-                    </div>
-
-                    <h3>HR</h3>
-
-                    <p>
-                        Employee-related documents and company information.
-                    </p>
-
-                    <span class="resource-link">Open Resource</span>
-
-                </button>
-
-
-                <button class="resource-card" onclick="accessResource('Finance')">
-
-                    <div class="resource-top">
-                        <div class="resource-icon finance">₹</div>
-                        <span class="arrow">→</span>
-                    </div>
-
-                    <h3>Finance</h3>
-
-                    <p>
-                        Financial documents and business resources.
-                    </p>
-
-                    <span class="resource-link">Open Resource</span>
-
-                </button>
-
-
-                <button class="resource-card" onclick="accessResource('Payroll')">
-
-                    <div class="resource-top">
-                        <div class="resource-icon payroll">▤</div>
-                        <span class="arrow">→</span>
-                    </div>
-
-                    <h3>Payroll</h3>
-
-                    <p>
-                        Payroll-related company resources and records.
-                    </p>
-
-                    <span class="resource-link">Open Resource</span>
-
-                </button>
-
-
-                <button class="resource-card" onclick="accessResource('Reports')">
-
-                    <div class="resource-top">
-                        <div class="resource-icon reports">◫</div>
-                        <span class="arrow">→</span>
-                    </div>
-
-                    <h3>Reports</h3>
-
-                    <p>
-                        Business reports, analytics and shared information.
-                    </p>
-
-                    <span class="resource-link">Open Resource</span>
-
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- Bottom Information -->
-        <section class="information-area">
-
-            <div class="info-box">
-                <div class="info-icon">i</div>
-
-                <div>
-                    <strong>Workspace Information</strong>
-
-                    <p>
-                        Use the resources above to access files and information
-                        available within your employee workspace.
-                    </p>
-                </div>
-            </div>
-
-            <div class="activity-box">
-
-                <div class="activity-icon">↗</div>
-
-                <div>
-                    <strong>Resource Access</strong>
-
-                    <p>
-                        Your resource activity is recorded automatically.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- Access Message -->
-    <div id="access-message" class="access-message">
-        <div class="message-icon">✓</div>
-
-        <div>
-            <strong>Access Recorded</strong>
-            <span>Resource access has been recorded.</span>
-        </div>
-    </div>
-
-
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>
