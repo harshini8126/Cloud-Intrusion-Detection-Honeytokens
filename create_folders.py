@@ -8,7 +8,8 @@ with app.app_context():
         Folder(folder_name="Projects", is_honeytoken=False),
         Folder(folder_name="HR", is_honeytoken=False),
         Folder(folder_name="Finance", is_honeytoken=True),
-        Folder(folder_name="Payroll", is_honeytoken=True)
+        Folder(folder_name="Payroll", is_honeytoken=True),
+        Folder(folder_name="Reports", is_honeytoken=False)
     ]
 
     for folder in folders:

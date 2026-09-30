@@ -18,51 +18,50 @@ def honeytoken_access():
 
     data = request.get_json()
 
-    resource_name = data.get("resource")
+    if not data or "resource" not in data:
+        return jsonify({
+            "message": "Invalid resource request."
+        }), 400
 
-    # Find the folder/resource
-    folder = Folder.query.filter_by(folder_name=resource_name).first()
+    resource_name = data["resource"]
 
-    # If the resource does not exist
+    folder = Folder.query.filter_by(
+        folder_name=resource_name
+    ).first()
+
     if folder is None:
         return jsonify({
             "message": "Resource not found."
         }), 404
 
-    # Check whether it is a honeytoken
     if folder.is_honeytoken:
 
-        # Record the suspicious access
         log = Log(
             username=current_user.username,
             folder_name=resource_name,
             status="Honeytoken Access"
         )
 
-        # Create security alert
         alert = Alert(
             username=current_user.username,
-            alert_message=f"Honeytoken accessed: {resource_name}"
+            alert_message=f"Suspicious resource access detected: {resource_name}"
         )
 
         db.session.add(log)
         db.session.add(alert)
         db.session.commit()
 
-        return jsonify({
-            "message": "Honeytoken accessed! Security alert generated."
-        })
+    else:
 
-    # Normal resource access
-    log = Log(
-        username=current_user.username,
-        folder_name=resource_name,
-        status="Normal Access"
-    )
+        log = Log(
+            username=current_user.username,
+            folder_name=resource_name,
+            status="Normal Access"
+        )
 
-    db.session.add(log)
-    db.session.commit()
+        db.session.add(log)
+        db.session.commit()
 
     return jsonify({
-        "message": "Resource accessed successfully."
+        "message": "Resource access recorded."
     })

@@ -1,29 +1,32 @@
-const honeytokenButtons = document.querySelectorAll(".honeytoken-btn");
+function accessResource(resourceName) {
 
-honeytokenButtons.forEach(button => {
-
-    button.addEventListener("click", function () {
-
-        const resourceName = this.dataset.resource;
-
-        fetch("/honeytoken-access", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                resource: resourceName
-            })
+    fetch("/honeytoken-access", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            resource: resourceName
         })
-        .then(response => response.json())
-        .then(data => {
-            alert("Security Alert: " + data.message);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("Unable to contact the security server.");
-        });
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        const message = document.getElementById("access-message");
+
+        message.style.display = "flex";
+
+        setTimeout(() => {
+            message.style.display = "none";
+        }, 2500);
+
+    })
+
+    .catch(error => {
+
+        console.error("Resource access error:", error);
 
     });
-
-});
+}
