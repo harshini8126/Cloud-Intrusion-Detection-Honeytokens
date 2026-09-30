@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from routes.auth import auth
 from routes.employee import employee
 from routes.admin import admin
+from routes.security import security
 
 
 app = Flask(__name__)
@@ -31,6 +32,7 @@ def load_user(user_id):
 app.register_blueprint(auth)
 app.register_blueprint(employee)
 app.register_blueprint(admin)
+app.register_blueprint(security)
 
 
 # Home Page
@@ -47,3 +49,4 @@ with app.app_context():
 # Run application
 if __name__ == "__main__":
     app.run(debug=True)
+

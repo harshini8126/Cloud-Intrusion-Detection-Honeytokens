@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, jsonify
 from flask_login import login_required, current_user
 
 from models.models import db, Folder, Log, Alert
+from routes.security import add_log
 
 employee = Blueprint("employee", __name__)
 
@@ -50,6 +51,8 @@ def honeytoken_access():
         db.session.add(log)
         db.session.add(alert)
         db.session.commit()
+        add_log(current_user.username, resource_name, "Honeytoken Access")
+        add_log(current_user.username, resource_name, "Honeytoken Access")
 
     else:
 
@@ -65,3 +68,5 @@ def honeytoken_access():
     return jsonify({
         "message": "Resource access recorded."
     })
+
+

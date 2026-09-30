@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Security Monitoring</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #17202a;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+        }
+
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #17202a;
+            color: white;
+        }
+
+        .danger {
+            color: red;
+            font-weight: bold;
+        }
+
+        .normal {
+            color: green;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>Security Monitoring Dashboard</h1>
+
+    <p>Cloud Intrusion Detection System</p>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Total Logs</h3>
+
+            <div class="number">
+                {{ logs|length }}
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Security Alerts</h3>
+
+            <div class="number danger">
+                {{ alerts|length }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Security Alerts</h2>
+
+        <table>
+
+            <tr>
+
+                <th>Username</th>
+
+                <th>Alert Message</th>
+
+                <th>Time</th>
+
+            </tr>
+
+
+            {% for alert in alerts %}
+
+            <tr>
+
+                <td>
+                    {{ alert.username }}
+                </td>
+
+                <td class="danger">
+                    {{ alert.message }}
+                </td>
+
+                <td>
+                    {{ alert.time }}
+                </td>
+
+            </tr>
+
+            {% else %}
+
+            <tr>
+
+                <td colspan="3">
+                    No security alerts found.
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Access Logs</h2>
+
+        <table>
+
+            <tr>
+
+                <th>Username</th>
+
+                <th>Folder</th>
+
+                <th>Status</th>
+
+                <th>Time</th>
+
+            </tr>
+
+
+            {% for log in logs %}
+
+            <tr>
+
+                <td>
+                    {{ log.username }}
+                </td>
+
+                <td>
+                    {{ log.folder }}
+                </td>
+
+                <td>
+
+                    {% if log.status == "Honeytoken Access" %}
+
+                        <span class="danger">
+                            {{ log.status }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="normal">
+                            {{ log.status }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ log.time }}
+                </td>
+
+            </tr>
+
+            {% else %}
+
+            <tr>
+
+                <td colspan="4">
+                    No access logs found.
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
