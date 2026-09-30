@@ -1,31 +1,274 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CloudSpace | Secure Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/login.css') }}">
 </head>
+
 <body>
 
-<h2>Cloud Intrusion Detection Using Honeytokens</h2>
+    <div class="login-page">
 
-<form method="POST">
+        <!-- LEFT SIDE -->
+        <div class="login-info">
 
-    <label>Username:</label><br>
-    <input type="text" name="username" required><br><br>
+            <div class="brand">
+                <div class="brand-logo">CS</div>
 
-    <label>Password:</label><br>
-    <input type="password" name="password" required><br><br>
+                <div>
+                    <h2>CloudSpace</h2>
+                    <span>Cloud Security Platform</span>
+                </div>
+            </div>
 
-    <button type="submit">Login</button>
 
-</form>
+            <div class="info-content">
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <p style="color:red;">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+                <span class="eyebrow">
+                    SECURE CLOUD ENVIRONMENT
+                </span>
+
+                <h1>
+                    Protecting cloud resources
+                    through intelligent
+                    threat detection.
+                </h1>
+
+                <p>
+                    Secure access to your cloud workspace with
+                    continuous monitoring and honeytoken-based
+                    intrusion detection.
+                </p>
+
+
+                <div class="security-points">
+
+                    <div class="security-point">
+
+                        <div class="point-icon">✓</div>
+
+                        <div>
+                            <strong>Secure Authentication</strong>
+                            <span>Protected user access</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-point">
+
+                        <div class="point-icon">◈</div>
+
+                        <div>
+                            <strong>Threat Monitoring</strong>
+                            <span>Continuous resource monitoring</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-point">
+
+                        <div class="point-icon">◇</div>
+
+                        <div>
+                            <strong>Honeytoken Detection</strong>
+                            <span>Automatic suspicious activity alerts</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="system-footer">
+                <span class="status-dot"></span>
+                CloudSpace Security System
+                <span class="separator">•</span>
+                System Online
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="login-section">
+
+            <div class="login-card">
+
+                <div class="mobile-logo">
+                    CS
+                </div>
+
+
+                <div class="login-heading">
+
+                    <span class="eyebrow">
+                        WELCOME BACK
+                    </span>
+
+                    <h1>Sign in</h1>
+
+                    <p>
+                        Access your secure cloud workspace.
+                    </p>
+
+                </div>
+
+
+                {% with messages = get_flashed_messages() %}
+
+                    {% if messages %}
+
+                        <div class="error-message">
+
+                            <span>!</span>
+
+                            <div>
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <form method="POST">
+
+
+                    <div class="form-group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                ◉
+                            </span>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Enter your username"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                ◇
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                onclick="togglePassword()">
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit" class="login-btn">
+
+                        <span>Sign In Securely</span>
+
+                        <span class="arrow">→</span>
+
+                    </button>
+
+                </form>
+
+
+                <div class="login-security">
+
+                    <span class="lock">🔒</span>
+
+                    <div>
+                        <strong>Secure connection</strong>
+
+                        <span>
+                            Your cloud workspace is protected.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="login-footer">
+                    CloudSpace © 2026
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".show-password");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "Show";
+
+            }
+
+        }
+
+    </script>
 
 </body>
+
 </html>

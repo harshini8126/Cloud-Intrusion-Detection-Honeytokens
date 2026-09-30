@@ -1,65 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Employee Dashboard</title>
+    <title>Cloud Workspace | Employee Portal</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-    <h1>Employee Dashboard</h1>
+    <!-- Top Navigation -->
+    <header class="topbar">
 
-    <p>Welcome Employee!</p>
+        <div class="brand">
+            <div class="brand-logo">C</div>
 
-    <a href="/logout">Logout</a>
+            <div>
+                <h2>CloudSpace</h2>
+                <span>Employee Workspace</span>
+            </div>
+        </div>
 
-    <hr>
+        <div class="topbar-right">
 
-    <h2>Cloud Resources</h2>
+            <div class="status">
+                <span class="status-dot"></span>
+                System Online
+            </div>
 
-    <!-- Normal Resources -->
+            <div class="profile">
+                <div class="profile-avatar">E</div>
 
-    <h3>Available Resources</h3>
+                <div class="profile-info">
+                    <strong>{{ session.get('username', 'Employee') }}</strong>
+                    <span>Employee</span>
+                </div>
+            </div>
 
-    <button class="resource-btn"
-            data-resource="Documents">
-        📁 Documents
-    </button>
+            <a href="/logout" class="logout-btn">Logout</a>
 
-    <button class="resource-btn"
-            data-resource="Projects">
-        📁 Projects
-    </button>
+        </div>
 
-    <button class="resource-btn"
-            data-resource="HR">
-        📁 HR
-    </button>
+    </header>
 
 
-    <!-- Honeytokens -->
+    <!-- Main Content -->
+    <main class="dashboard">
 
-    <h3>Restricted Resources</h3>
+        <!-- Welcome Section -->
+        <section class="welcome-section">
 
-    <button class="honeytoken-btn"
-            data-resource="Finance">
-        🔐 Finance
-    </button>
+            <div>
+                <p class="small-title">EMPLOYEE PORTAL</p>
 
-    <button class="honeytoken-btn"
-            data-resource="Payroll">
-        🔐 Payroll
-    </button>
+                <h1>Welcome back, {{ session.get('username', 'Employee') }}</h1>
+
+                <p class="welcome-text">
+                    Access your company's cloud resources and files from one secure workspace.
+                </p>
+            </div>
+
+            <div class="security-card">
+                <div class="security-icon">✓</div>
+
+                <div>
+                    <strong>Workspace Secure</strong>
+                    <span>Your session is active</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Resource Section -->
+        <section class="resource-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Cloud Resources</h2>
+                    <p>Access the resources available to you.</p>
+                </div>
+
+                <span class="resource-count">6 Resources</span>
+            </div>
+
+
+            <!-- Resource Cards -->
+            <div class="resource-grid">
+
+                <button class="resource-card" onclick="accessResource('Documents')">
+
+                    <div class="resource-top">
+                        <div class="resource-icon documents">▣</div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <h3>Documents</h3>
+
+                    <p>
+                        Company documents, reports and shared files.
+                    </p>
+
+                    <span class="resource-link">Open Resource</span>
+
+                </button>
+
+
+                <button class="resource-card" onclick="accessResource('Projects')">
+
+                    <div class="resource-top">
+                        <div class="resource-icon projects">◆</div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <h3>Projects</h3>
+
+                    <p>
+                        Project files, development resources and materials.
+                    </p>
+
+                    <span class="resource-link">Open Resource</span>
+
+                </button>
+
+
+                <button class="resource-card" onclick="accessResource('HR')">
+
+                    <div class="resource-top">
+                        <div class="resource-icon hr">♙</div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <h3>HR</h3>
+
+                    <p>
+                        Employee-related documents and company information.
+                    </p>
+
+                    <span class="resource-link">Open Resource</span>
+
+                </button>
+
+
+                <button class="resource-card" onclick="accessResource('Finance')">
+
+                    <div class="resource-top">
+                        <div class="resource-icon finance">₹</div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <h3>Finance</h3>
+
+                    <p>
+                        Financial documents and business resources.
+                    </p>
+
+                    <span class="resource-link">Open Resource</span>
+
+                </button>
+
+
+                <button class="resource-card" onclick="accessResource('Payroll')">
+
+                    <div class="resource-top">
+                        <div class="resource-icon payroll">▤</div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <h3>Payroll</h3>
+
+                    <p>
+                        Payroll-related company resources and records.
+                    </p>
+
+                    <span class="resource-link">Open Resource</span>
+
+                </button>
+
+
+                <button class="resource-card" onclick="accessResource('Reports')">
+
+                    <div class="resource-top">
+                        <div class="resource-icon reports">◫</div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <h3>Reports</h3>
+
+                    <p>
+                        Business reports, analytics and shared information.
+                    </p>
+
+                    <span class="resource-link">Open Resource</span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Bottom Information -->
+        <section class="information-area">
+
+            <div class="info-box">
+                <div class="info-icon">i</div>
+
+                <div>
+                    <strong>Workspace Information</strong>
+
+                    <p>
+                        Use the resources above to access files and information
+                        available within your employee workspace.
+                    </p>
+                </div>
+            </div>
+
+            <div class="activity-box">
+
+                <div class="activity-icon">↗</div>
+
+                <div>
+                    <strong>Resource Access</strong>
+
+                    <p>
+                        Your resource activity is recorded automatically.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Access Message -->
+    <div id="access-message" class="access-message">
+        <div class="message-icon">✓</div>
+
+        <div>
+            <strong>Access Recorded</strong>
+            <span>Resource access has been recorded.</span>
+        </div>
+    </div>
 
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
-
 </html>

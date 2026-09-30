@@ -1,32 +1,446 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CloudSpace | Security Center</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 </head>
+
 <body>
 
-<h1>Admin Dashboard</h1>
+    <!-- TOP NAVIGATION -->
+    <header class="topbar">
 
-<p>Welcome Admin!</p>
+        <div class="brand">
+            <div class="brand-logo">CS</div>
 
-<table border="1">
-    <tr>
-        <th>Username</th>
-        <th>Folder</th>
-        <th>Status</th>
-    </tr>
+            <div>
+                <h2>CloudSpace</h2>
+                <p>Security Operations Center</p>
+            </div>
+        </div>
 
-    <tr>
-        <td>employee</td>
-        <td>Finance_Honeytoken</td>
-        <td>Alert Generated</td>
-    </tr>
+        <div class="top-right">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                SYSTEM ONLINE
+            </div>
 
-</table>
+            <div class="admin-name">
+                Administrator
+            </div>
 
-<br>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
 
-<a href="/logout">Logout</a>
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="container">
+
+
+        <!-- PAGE INTRO -->
+        <section class="page-intro">
+
+            <div>
+                <span class="eyebrow">CLOUD SECURITY</span>
+
+                <h1>Security Command Center</h1>
+
+                <p>
+                    Monitor cloud resources, detect suspicious activity
+                    and respond to honeytoken incidents.
+                </p>
+            </div>
+
+            <div class="monitor-status">
+                <span class="pulse"></span>
+                LIVE MONITORING
+            </div>
+
+        </section>
+
+
+        <!-- THREAT BANNER -->
+        {% if alerts %}
+
+        {% set latest_alert = alerts[0] %}
+
+        <section class="threat-banner">
+
+            <div class="threat-icon">
+                !
+            </div>
+
+            <div class="threat-main">
+
+                <div class="threat-top">
+                    <span class="critical-label">
+                        CRITICAL SECURITY EVENT
+                    </span>
+
+                    <span class="honey-badge">
+                        HONEYTOKEN TRIGGERED
+                    </span>
+                </div>
+
+                <h2>Suspicious Resource Access Detected</h2>
+
+                <p>
+                    A protected cloud resource was accessed and the
+                    security monitoring system generated an alert.
+                </p>
+
+            </div>
+
+            <div class="threat-status">
+                <strong>THREAT</strong>
+                <span>DETECTED</span>
+            </div>
+
+        </section>
+
+        {% else %}
+
+        <section class="safe-banner">
+
+            <div class="safe-icon">
+                ✓
+            </div>
+
+            <div>
+                <strong>SYSTEM SECURE</strong>
+
+                <p>
+                    No honeytoken security incidents have been detected.
+                </p>
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- STAT CARDS -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+                    <span>SECURITY STATUS</span>
+                    <div class="stat-symbol danger-symbol">!</div>
+                </div>
+
+                {% if alerts %}
+                <h2 class="danger-text">ALERT DETECTED</h2>
+                {% else %}
+                <h2 class="safe-text">SECURE</h2>
+                {% endif %}
+
+                <p>Current system threat status</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+                    <span>MONITORED RESOURCES</span>
+                    <div class="stat-symbol">◈</div>
+                </div>
+
+                <h2>06</h2>
+
+                <p>Cloud resources under monitoring</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+                    <span>HONEYTOKENS</span>
+                    <div class="stat-symbol">◇</div>
+                </div>
+
+                <h2>02</h2>
+
+                <p>Protected decoy resources</p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-card-top">
+                    <span>ACCESS EVENTS</span>
+                    <div class="stat-symbol">↗</div>
+                </div>
+
+                <h2>{{ logs|length }}</h2>
+
+                <p>Total recorded resource access</p>
+
+            </div>
+
+        </section>
+
+
+        {% if alerts %}
+
+        <!-- INCIDENT SECTION -->
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+                    <span class="eyebrow">THREAT INTELLIGENCE</span>
+                    <h2>Latest Security Incident</h2>
+                </div>
+
+                <span class="severity-badge">
+                    HIGH SEVERITY
+                </span>
+
+            </div>
+
+
+            <div class="incident-card">
+
+                <div class="incident-header">
+
+                    <div class="incident-heading">
+
+                        <div class="incident-alert-icon">
+                            !
+                        </div>
+
+                        <div>
+                            <span>HONEYTOKEN INCIDENT</span>
+
+                            <h2>
+                                Finance Honeytoken Activated
+                            </h2>
+                        </div>
+
+                    </div>
+
+                    <div class="incident-time">
+                        ALERT GENERATED
+                    </div>
+
+                </div>
+
+
+                <div class="incident-grid">
+
+                    <div class="incident-detail">
+                        <span>ACTOR</span>
+                        <strong>
+                            {{ latest_alert.username }}
+                        </strong>
+                    </div>
+
+
+                    <div class="incident-detail">
+                        <span>RESOURCE</span>
+                        <strong>Finance</strong>
+                    </div>
+
+
+                    <div class="incident-detail">
+                        <span>EVENT TYPE</span>
+                        <strong>Honeytoken Access</strong>
+                    </div>
+
+
+                    <div class="incident-detail">
+                        <span>STATUS</span>
+                        <strong class="detected">
+                            ALERT GENERATED
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="incident-message">
+
+                    <div class="message-icon">
+                        ⚠
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Unauthorized resource access detected
+                        </strong>
+
+                        <p>
+                            {{ latest_alert.alert_message }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- ACCESS ACTIVITY -->
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+                    <span class="eyebrow">MONITORING LOG</span>
+
+                    <h2>Recent Access Activity</h2>
+                </div>
+
+                <span class="activity-count">
+                    {{ logs|length }} EVENTS
+                </span>
+
+            </div>
+
+
+            <div class="activity-card">
+
+                {% if logs %}
+
+                    {% for log in logs[:8] %}
+
+                    <div class="activity-row">
+
+                        <div class="activity-indicator
+                            {% if log.status == 'Honeytoken Access' %}
+                            danger-indicator
+                            {% else %}
+                            normal-indicator
+                            {% endif %}">
+                        </div>
+
+
+                        <div class="activity-info">
+
+                            <strong>
+                                {{ log.username }}
+                            </strong>
+
+                            <span>
+                                accessed
+                                <b>{{ log.folder_name }}</b>
+                            </span>
+
+                        </div>
+
+
+                        <div class="activity-type">
+
+                            {% if log.status == 'Honeytoken Access' %}
+
+                            <span class="danger-pill">
+                                HONEYTOKEN
+                            </span>
+
+                            {% else %}
+
+                            <span class="normal-pill">
+                                NORMAL
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="activity-status">
+
+                            {% if log.status == 'Honeytoken Access' %}
+
+                            <strong class="danger-text">
+                                ALERT
+                            </strong>
+
+                            {% else %}
+
+                            <strong class="safe-text">
+                                RECORDED
+                            </strong>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-state">
+                        No access events recorded yet.
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- HONEYTOKEN EXPLANATION -->
+        <section class="explanation-card">
+
+            <div class="explanation-icon">
+                ◈
+            </div>
+
+            <div>
+
+                <span class="eyebrow">
+                    DETECTION MECHANISM
+                </span>
+
+                <h2>How Honeytoken Detection Works</h2>
+
+                <p>
+                    A honeytoken is a decoy resource placed in the cloud
+                    environment. When an unauthorized user accesses the
+                    resource, the system records the activity and
+                    automatically generates a security alert.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <span>
+                CloudSpace Security System
+            </span>
+
+            <span>
+                Cloud Intrusion Detection using Honeytokens
+            </span>
+
+        </footer>
+
+    </main>
 
 </body>
+
 </html>
