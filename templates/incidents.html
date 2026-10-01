@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Response</title>
+</head>
+<body>
+
+    <h1>Incident Response</h1>
+
+    <h2>Incidents</h2>
+
+    {% if incidents %}
+        {% for incident in incidents %}
+            <div>
+                <p><strong>Incident ID:</strong> {{ incident.id }}</p>
+                <p><strong>User:</strong> {{ incident.username }}</p>
+                <p><strong>Resource:</strong> {{ incident.resource }}</p>
+                <p><strong>Event Type:</strong> {{ incident.event_type }}</p>
+                <p><strong>Time:</strong> {{ incident.event_time }}</p>
+                <p><strong>Severity:</strong> {{ incident.severity }}</p>
+                <p><strong>Status:</strong> {{ incident.status }}</p>
+
+                <a href="{{ url_for('incidents.update_incident', incident_id=incident.id, status='NEW') }}">
+                    NEW
+                </a>
+
+                <a href="{{ url_for('incidents.update_incident', incident_id=incident.id, status='INVESTIGATING') }}">
+                    INVESTIGATING
+                </a>
+
+                <a href="{{ url_for('incidents.update_incident', incident_id=incident.id, status='RESOLVED') }}">
+                    RESOLVED
+                </a>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No incidents found.</p>
+    {% endif %}
+
+    <h2>Security Alerts</h2>
+
+    {% if alerts %}
+        {% for alert in alerts %}
+            <div>
+                <p><strong>User:</strong> {{ alert.username }}</p>
+                <p><strong>Message:</strong> {{ alert.alert_message }}</p>
+                <p><strong>Time:</strong> {{ alert.alert_time }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No security alerts found.</p>
+    {% endif %}
+
+    <h2>Access History</h2>
+
+    {% if logs %}
+        {% for log in logs %}
+            <div>
+                <p><strong>User:</strong> {{ log.username }}</p>
+                <p><strong>Resource:</strong> {{ log.folder_name }}</p>
+                <p><strong>Status:</strong> {{ log.status }}</p>
+                <p><strong>Time:</strong> {{ log.access_time }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No access records found.</p>
+    {% endif %}
+<h2>Incident Status</h2>
+
+{% if incidents %}
+    {% for incident in incidents %}
+        <div>
+            <p><strong>Incident ID:</strong> {{ incident.id }}</p>
+            <p><strong>User:</strong> {{ incident.username }}</p>
+            <p><strong>Resource:</strong> {{ incident.resource }}</p>
+            <p><strong>Event:</strong> {{ incident.event_type }}</p>
+            <p><strong>Severity:</strong> {{ incident.severity }}</p>
+            <p><strong>Status:</strong> {{ incident.status }}</p>
+            <p><strong>Time:</strong> {{ incident.event_time }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+{% else %}
+    <p>No incidents found.</p>
+{% endif %}
+
+</body>
+</html>

@@ -39,3 +39,15 @@ class Alert(db.Model):
     username = db.Column(db.String(100))
     alert_message = db.Column(db.String(300))
     alert_time = db.Column(db.DateTime, default=datetime.utcnow)
+# Incidents Table
+class Incident(db.Model):
+    __tablename__ = "incidents"
+
+    id = db.Column(db.Integer, primary_key=True)
+    alert_id = db.Column(db.Integer, nullable=False)
+    username = db.Column(db.String(100), nullable=False)
+    resource = db.Column(db.String(100), nullable=False)
+    event_type = db.Column(db.String(100), nullable=False)
+    event_time = db.Column(db.DateTime, nullable=False)
+    severity = db.Column(db.String(20), default="HIGH")
+    status = db.Column(db.String(20), default="NEW")

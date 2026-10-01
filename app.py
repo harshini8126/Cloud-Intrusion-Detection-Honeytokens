@@ -7,6 +7,8 @@ from routes.auth import auth
 from routes.employee import employee
 from routes.admin import admin
 from routes.security import security
+from routes.incidents import incidents
+from routes.reports import reports
 
 
 app = Flask(__name__)
@@ -32,6 +34,7 @@ def load_user(user_id):
 app.register_blueprint(auth)
 app.register_blueprint(employee)
 app.register_blueprint(admin)
+app.register_blueprint(security)
 app.register_blueprint(security)
 
 
