@@ -35,7 +35,8 @@ app.register_blueprint(auth)
 app.register_blueprint(employee)
 app.register_blueprint(admin)
 app.register_blueprint(security)
-app.register_blueprint(security)
+app.register_blueprint(incidents)
+app.register_blueprint(reports)
 
 
 # Home Page
@@ -52,4 +53,3 @@ with app.app_context():
 # Run application
 if __name__ == "__main__":
     app.run(debug=True)
-

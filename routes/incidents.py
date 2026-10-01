@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from models.models import db, Log, Alert, Incident
 
 incidents = Blueprint("incidents", __name__)
@@ -8,6 +8,10 @@ incidents = Blueprint("incidents", __name__)
 @incidents.route("/incidents")
 @login_required
 def incident_list():
+
+    if current_user.role != "admin":
+        return redirect(url_for("employee.dashboard"))
+
     logs = Log.query.order_by(Log.id.desc()).all()
     alerts = Alert.query.order_by(Alert.id.desc()).all()
 
@@ -50,6 +54,10 @@ def incident_list():
 @incidents.route("/incidents/update/<int:incident_id>/<status>")
 @login_required
 def update_incident(incident_id, status):
+
+    if current_user.role != "admin":
+        return redirect(url_for("employee.dashboard"))
+
     incident = Incident.query.get_or_404(incident_id)
 
     if status in ["NEW", "INVESTIGATING", "RESOLVED"]:
